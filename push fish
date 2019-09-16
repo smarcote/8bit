@@ -1,0 +1,157 @@
+
+#include <iostream>
+#include <conio2.h>
+#include <ctime>
+#include <windows.h>
+
+using namespace std;
+
+class Peces{
+	
+private:
+	int x; int y;
+	int anchoM=0;
+	int altoM=0;
+	int colores [10][4];
+	int f1 [10][4];
+
+public:
+
+	void borrar(int, int);
+	PecesIzquierda(int,int, int, int, int);
+	void dibujar11(int, int,int);	
+	void Mover(int);
+};
+
+Peces::PecesIzquierda(int x_,int y_, int anchoM, int altoM, int color){
+	x = x_; y = y_;
+	
+	if (anchoM==10 && altoM==4)
+	{
+		f1[0][0]=0;f1[0][1]=0;f1[0][2]=47;f1[0][3]=39;
+		f1[1][0]=0;f1[1][1]=46;f1[1][2]=111;f1[1][3]=45;
+		f1[2][0]=0;f1[2][1]=45;f1[2][2]=0;f1[2][3]=45;
+		f1[3][0]=47;f1[3][1]=0;f1[3][2]=41;f1[3][3]=39;
+		f1[4][0]=124;f1[4][1]=0;f1[4][2]=41;f1[4][3]=39;
+		f1[5][0]=0;f1[5][1]=45;f1[5][2]=0;f1[5][3]=39;
+		f1[6][0]=0;f1[6][1]=46;f1[6][2]=0;f1[6][3]=39;
+		f1[7][0]=0;f1[7][1]=0;f1[7][2]=92;f1[7][3]=39;
+		f1[8][0]=0;f1[8][1]=0;f1[8][2]=47;f1[8][3]=92;
+		f1[9][0]=0;f1[9][1]=0;f1[9][2]=40;f1[9][3]=40;
+	
+		colores [0][0]=color;
+		colores [1][0]=color;
+		colores [2][0]=color;
+		colores [3][0]=color;
+		colores [4][0]=color;
+		colores [5][0]=color;
+		colores [6][0]=color;
+		colores [7][0]=color;
+		colores [8][0]=color;
+		colores [9][0]=color;
+		
+		colores [0][1]=color;
+		colores [1][1]=color;
+		colores [2][1]=color;
+		colores [3][1]=color;
+		colores [4][1]=color;
+		colores [5][1]=color;
+		colores [6][1]=color;
+		colores [7][1]=color;
+		colores [8][1]=color;
+		colores [9][1]=color;
+		
+		colores [0][2]=color;
+		colores [1][2]=color;
+		colores [2][2]=color;
+		colores [3][2]=color;
+		colores [4][2]=color;
+		colores [5][2]=color;
+		colores [6][2]=color;
+		colores [7][2]=color;
+		colores [8][2]=color;
+		colores [9][2]=color;
+		
+		colores [0][3]=color;
+		colores [1][3]=color;
+		colores [2][3]=color;
+		colores [3][3]=color;
+		colores [4][3]=color;
+		colores [5][3]=color;
+		colores [6][3]=color;
+		colores [7][3]=color;
+		colores [8][3]=color;
+		colores [9][3]=color;
+	}
+} 
+
+void Peces::Mover(int off){
+	
+	if (off == -1){x-=1;}
+	if (off == 1){x+=1;}
+	if (off == 2){y+=1;}
+	if (off == -2){y-=1;}
+	
+}
+
+void Peces::borrar(int anchoM, int altoM){
+	
+	textcolor(WHITE);
+	
+	for(int k=0;k<anchoM+2;k++){
+		for(int p=0;p<altoM+2;p++){
+			putchxy(x+k-1,y+p-1,0);
+		}
+	}
+	
+	textcolor(WHITE);
+	
+	
+}
+
+void Peces::dibujar11(int anchoM, int altoM, int color){
+	textcolor(2);
+	for(int k=0;k<anchoM;k++){
+		for(int p=0;p<altoM;p++){
+			textcolor(colores[k][p]);
+			putchxy(x+k,y+p,f1[k][p]);
+		}
+	}
+	textcolor(WHITE);
+}
+
+int main(int argc, char *argv[]) {
+	system("mode 92, 30"); 
+	Peces A1; 
+	A1.borrar (10,4);
+	A1.PecesIzquierda(4,10,10,4,1);
+	A1.dibujar11 (10,4,1);
+	
+	bool flag = false;
+	
+	
+	while(true){
+		
+		if(kbhit()) { 
+			int tecla=getch();
+			
+			switch(tecla)
+			{
+			case 72: //abajo
+				A1.Mover(-2);
+			break;
+				
+			case 80: //arriba
+				A1.Mover(2);
+			break;
+				
+			case 'a': return 1;
+			}
+			A1.borrar (10,4);
+			A1.dibujar11(10,4,1);
+			if (flag == true)
+			{A1.dibujar11(10,4,1);}}
+	}
+	gotoxy (92,30);
+	return 0;
+}
